@@ -178,3 +178,178 @@ def check_grades(people_data):
             print(f"{person} failed")
 
 check_grades(students)
+
+#----------------
+# Task 6: Employee Search
+# 1. Create a nested dictionary of employees with ID, name, and department.
+# 2. Implement a function to filter employees by department name.
+# 3. Return a list of names and print it to verify the logic.
+
+employees = {
+    1: {'name': 'Tom Conor', 'department': 'Sales'},
+    2: {'name': 'Tim Mona', 'department': 'IT'}
+}
+
+def get_dept_members(dept_name):
+    list_names = []
+    for v in employees.values():
+        if v['department'] == dept_name:
+            list_names.append(v['name'])
+
+    return list_names
+
+print(get_dept_members('IT'))
+
+#----------------
+# Task 7: Sandwich Toppings
+# 1. Define a function 'make_sandwich()' that uses *args to accept any number of toppings.
+# 2. Print a summary of the order by iterating through the toppings.
+# 3. Test the function with multiple calls containing different amounts of arguments.
+
+def make_sandwich(*args):
+    print("Your sandwich contains: ")
+    for topping in args:
+        print(topping)
+
+sandwich_student = make_sandwich('bread')
+sandwich_tomato = make_sandwich('bread', 'tomato')
+sandwich_vegetables = make_sandwich('bread', 'tomato', 'avocado', 'olive')
+
+#----------------
+# Task 8: Filter and Square
+# 1. Start with a list of numbers from 1 to 10.
+# 2. Use a list comprehension to find even numbers and calculate their squares.
+# 3. Store the result in a new list and print it.
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+squares = [number ** 2 for number in numbers if number % 2 ==0]
+
+print(squares)
+
+#----------------
+# Task 9: User Profile Builder
+# 1. Define 'build_profile()' using mandatory arguments and **kwargs.
+# 2. Build and return a dictionary containing all provided user information.
+# 3. Test with various keyword arguments and print the final profile.
+
+def build_profile(first_name, last_name, **kwargs):
+    user_info = {}
+    user_info['First name'] = first_name
+    user_info['Last name'] = last_name
+
+    for k, v in kwargs.items():
+        user_info[k] = v
+
+    return user_info
+
+robert = build_profile('Robert', 'Lewandowski', Age=40)
+print(robert)
+
+#----------------
+# Task 10: Task Mover
+# 1. Start with a list of 'todo' tasks and an empty list of 'finished' tasks.
+# 2. Use a 'while' loop to move tasks from 'todo' to 'finished' using pop() and append().
+# 3. Print the status of both lists after the process is complete.
+
+todo_tasks = ['email client', 'buy milk', 'code python']
+finished_tasks = []
+
+while todo_tasks:
+    current_task = todo_tasks.pop()
+    print(f"Finished task: {current_task}")
+    finished_tasks.append(current_task)
+
+print(f"todo_tasks: {todo_tasks}")
+print(f"finished_tasks: {finished_tasks}")
+
+#----------------
+# Task 11: Voting Poll
+# 1. Create an empty dictionary to store names and favorite programming languages.
+# 2. Use a while loop to collect user data via input().
+# 3. Include a way for the user to quit the loop (using a flag or break).
+# 4. Print the final dictionary of responses.
+
+responses = {}
+
+while True:
+    user_name = input("Enter your name: ")
+    user_language = input("Enter your favorite programming language: ")
+    responses[user_name] = user_language
+
+    flag = input("Does anyone else want to answer: ")
+    if flag != 'yes':
+        break
+
+print("Thank you for participating in the survey!")
+print("Results:")
+for k, v in responses.items():
+    print(f"{k.title()} likes: {v.title()}")
+
+#----------------
+# Task 12: Bank Account Manager
+# 1. Create a BankAccount class with an owner and a balance starting at 0.
+# 2. Implement deposit(amount) and withdraw(amount) methods.
+# 3. Add logic to withdraw() to prevent overdrafts.
+# 4. Test transactions and print the balance after each step.
+
+class BankAccount:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"Deposited {amount}$. New balance: {self.balance}$")
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            print("Insufficient funds!")
+        else:
+            self.balance -= amount
+            print(f"Withdrawn {amount}$. New balance: {self.balance}$")
+
+tom = BankAccount("Tom Holland", 1000)
+tom.deposit(100)
+tom.withdraw(100)
+tom.withdraw(20000)
+
+#----------------
+# Task 13: Smart Shopping Cart
+# 1. Use a dictionary to store items and their quantities.
+# 2. Define add_item() to handle both new and existing items (incrementing quantity).
+# 3. Define show_cart() to neatly display the current contents.
+# 4. Test by adding the same item multiple times.
+
+cart = {}
+
+def add_item(cart, item_name, quantity):
+    if item_name in cart:
+        cart[item_name] += quantity
+    else:
+        cart[item_name] = quantity
+
+def show_cart(cart):
+    for k, v in cart.items():
+        print(f"{k} : {v} quantity")
+
+add_item(cart, 'butter', 10)
+add_item(cart, 'butter', 1)
+
+show_cart(cart)
+
+#----------------
+# Task 14: The Uncrashable Calculator (Try-Except)
+# 1. Ask the user for two numbers and perform division.
+# 2. Use try-except to handle ZeroDivisionError and ValueError.
+# 3. Use a while loop with an else block to ensure the program only exits on successful calculation.
+
+while True:
+    try:
+        a_number = float(input("Enter first number: "))
+        b_number = float(input("Enter second number: "))
+        print(a_number/b_number)
+        break
+    except ZeroDivisionError:
+        print("Error: Cannot divide by zero!")
+    except ValueError:
+        print("Error: Please enter valid numbers!")
