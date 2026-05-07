@@ -353,3 +353,197 @@ while True:
         print("Error: Cannot divide by zero!")
     except ValueError:
         print("Error: Please enter valid numbers!")
+
+#----------------
+# Task 15: Advanced Gradebook (Classes & Exceptions)
+# 1. Create a Student class with a list for grades.
+# 2. Implement add_grade() with error handling for non-numeric inputs.
+# 3. Implement get_average() with ZeroDivisionError handling for empty lists.
+# 4. Test both error scenarios to ensure the program remains stable.
+
+class Student:
+    def __init__(self, name, grades=None):
+        self.name = name
+        if grades == None:
+            self.grades = []
+        else:
+            self.grades = grades
+
+    def add_grade(self, grade):
+        try:
+            value = float(grade)
+            self.grades.append(value)
+        except ValueError:
+            print("Error: Grade must be a number!")
+
+    def get_average(self):
+        try:
+            print(sum(self.grades)/len(self.grades))
+        except ZeroDivisionError:
+            print("No grades to calculate average")
+
+mati = Student('Matheo')
+mati.add_grade(5)
+mati.add_grade(3)
+mati.get_average()
+
+ana = Student('Ana')
+ana.add_grade('k')
+ana.get_average()
+
+#----------------
+# Task 16: Safe Dictionary Access (KeyError Handling)
+# 1. Start with a predefined price dictionary.
+# 2. Use try-except to handle KeyError when a user looks up a non-existent item.
+# 3. Implement a loop to allow multiple lookups until a 'quit' command is given.
+
+prices = {
+    "apple": 2.5,
+    "banana": 3.0,
+    "orange": 4.5
+}
+
+def get_item_price(shop_dict):
+    while True:
+        item_name = input("Enter the item name: ")
+
+        if item_name == 'quit':
+            break
+
+        try:
+            price = shop_dict[item_name]
+        except KeyError:
+            print("Sorry, this item is not in our database")
+        else:
+            print(f"Price: {price}")
+
+get_item_price(prices)
+
+#----------------
+# Task 17: Secure List Access (IndexError)
+# 1. Access list elements by user-provided index.
+# 2. Handle ValueError for non-integer inputs.
+# 3. Handle IndexError for out-of-bounds access.
+
+top_players = ["Mati", "Ana", "Tom"]
+
+while True:
+    try:
+        number_player = int(input("Enter player number: "))
+        print(top_players[number_player])
+        break
+    except ValueError:
+        print("you have to enter a number")
+    except IndexError:
+        print(f"we have only {len(top_players)} players")
+
+#----------------
+# Task 18: Multi-Exception Handling
+# 1. Create a function that accesses a list, converts the value, and performs division.
+# 2. Handle IndexError, ValueError, and ZeroDivisionError in one block.
+# 3. Test with inconsistent data to ensure robustness.
+
+my_data = ["10", "0", "abc"]
+
+def process_data(data_list, index):
+    try:
+        value = int(data_list[index])
+        value = 100/value
+        return value
+    except IndexError:
+        return "IE"
+    except ValueError:
+        return "VE"
+    except ZeroDivisionError:
+        return "ZDE"
+
+print(process_data(my_data, 0))
+print(process_data(my_data, 1))
+print(process_data(my_data, 2))
+
+#----------------
+# Task 19: The Resilient Loop
+# 1. Iterate through a list containing both valid numbers and invalid strings/zeros.
+# 2. Use try-except inside the loop to handle individual errors.
+# 3. Ensure that one faulty item doesn't crash the entire processing of the list.
+
+data = ["100", "200", "three hundred", "400", "0", "500"]
+
+for value in data:
+    try:
+        print(f"1000 : {value} = {1000/int(value)}")
+    except ValueError:
+        print(f"{value} - isn't a number")
+    except ZeroDivisionError:
+        print(f"{value} - don't division by zero")
+
+#----------------
+# Task 20: Dictionary Search with Finally
+# 1. Create a function to fetch values from a dictionary using try-except.
+# 2. Handle KeyError if the requested key is missing.
+# 3. Use the 'finally' block to execute code regardless of the search outcome.
+
+scores = {"Poland": 3, "Germany": 1, "France": 2}
+
+def get_score(country):
+    try:
+        country_score = scores[country]
+        return country_score
+    except KeyError:
+        return f"Error: No data for country {country}"
+    finally:
+        print("Search attempt finished")
+
+print(get_score('Pooland'))
+print(get_score('Poland'))
+
+#----------------
+# Task 21: Flight Booking System
+# 1. Create a Flight class with a specific capacity.
+# 2. Implement add_passenger() with a check for available seats.
+# 3. Use try-except logic to handle attempts to book a seat on a full flight.
+
+class Flight:
+    def __init__(self, flight_number, capacity):
+        self.flight_number = flight_number
+        self.capacity = capacity
+        self.passengers = []
+
+    def add_passenger(self, name):
+        if len(self.passengers) >= self.capacity:
+            raise Exception(f"Flight is full! Cannot add {name}")
+
+        self.passengers.append(name)
+        print(f"{name} was added to flight passengers")
+
+ryinar = Flight(1, 1)
+
+potential_passengers = ['Philip', 'Thomas']
+
+for person in potential_passengers:
+    try:
+        ryinar.add_passenger(person)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+
+#----------------
+# Task 22: Secure Data Converter
+# 1. Iterate through a dictionary with mixed string values.
+# 2. Use try-except to attempt conversion to float.
+# 3. Skip invalid data points and collect valid ones in a new dictionary.
+
+raw_data = {
+    "temp": "25.5",
+    "humidity": "none",
+    "pressure": "1013"
+}
+
+clean_data = {}
+
+for key, data in raw_data.items():
+    try:
+        clean_data[key] = float(data)
+    except ValueError:
+        print(f"Skipped invalid record: {key}")
+
+print(clean_data)
