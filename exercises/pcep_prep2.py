@@ -80,6 +80,7 @@ elif number < 0:
 else:
     print("zero")
 
+
 # Exercise 8: Read a score (0–100). Print the corresponding letter grade:
 # >= 90 → "A", >= 80 → "B", >= 70 → "C", >= 60 → "D", below → "F".
 score = int(input("Score: "))
@@ -135,3 +136,45 @@ for n in range(2, 21):
             break
 else:
     print("No prime number > 10 was found")
+
+
+# Exercise 12: Nested loops — print a multiplication table (1–5 × 1–5)
+# formatted as a grid.
+for i in range(1, 6):
+    print(" ")
+    for j in range(1, 6):
+        print(f"{i} * {j} = {i*j}")
+
+
+# ============================================================
+# SECTION 3:
+# ============================================================
+
+# Exercise 13: Create a list of 5 numbers. Append one element, insert at
+# index 2, print the last element, slice [1:4], sort and print, delete index 0.
+numbers = [1, 3, 2, 5, 7]
+numbers.append(4)
+numbers.insert(2, 3)
+print(numbers[-1])
+print(numbers[1:4])
+numbers.sort()
+print(numbers)
+del numbers[0]
+print(numbers)
+
+
+# Exercise 14: Build a list of squares of 1–10 using list comprehension.
+# Then create a second list with only even squares, also via comprehension.
+squares = [i ** 2 for i in range(1, 11)]
+even_squares = [i for i in squares if i % 2 == 0]
+print(even_squares)
+
+
+# Exercise 15: Create a 3×3 matrix (list of lists) and print its diagonal elements.
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(matrix[0][0], matrix[1][1], matrix[2][2])
