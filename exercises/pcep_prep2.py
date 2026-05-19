@@ -178,3 +178,204 @@ matrix = [
 ]
 
 print(matrix[0][0], matrix[1][1], matrix[2][2])
+
+
+# Exercise 16: Create a 5-element tuple. Check indexing/slicing,
+# confirm immutability (try modifying — catch the error), embed tuple in a list.
+my_tuple = (4, 3, 5, 6, 7)
+
+print(my_tuple[-1])
+print(my_tuple[1:3])
+
+try:
+    my_tuple[-1] = 7
+except TypeError:
+    print("Tuple doesn't support item assignment.")
+
+my_list = [1, 2]
+my_list.append(my_tuple)
+print(my_list)
+my_tuple += (1, 2)
+print(my_tuple)
+
+
+# Exercise 17: Create a dict mapping name → age for 3 people.
+# Add and remove an entry, check key existence with 'in',
+# iterate through keys(), values(), and items().
+people = {
+    "Jason": 18,
+    "Tom": 20,
+    "John": 31
+}
+
+people["Tim"] = 17
+people.pop("Jason")
+
+print(True if "Kevin" in people else False)
+
+for k, v in people.items():
+    print(f"{k} is {v} years old.")
+
+for k in people.keys():
+    print(k)
+
+for v in people.values():
+    print(v)
+
+
+# Exercise 18: For s = "Hello, Python World!" — index characters, slice "Python",
+# convert case, split into words, check startswith, use escape characters.
+s = "Hello, Python World!"
+
+print(f"{s[0]}, {s[7]}, {s[-1]}")
+print(s[7:13])
+print(s.upper(), s.lower())
+words = s.split()
+print(s.startswith("Hello"))
+print('She said "Python is great!"\n')
+
+
+# ============================================================
+# SECTION 4:
+# ============================================================
+
+# Exercise 19: Write a recursive function factorial(n) that computes n!
+# using the return keyword. Call it for n = 0, 1, 5, 10.
+def factorial(n):
+    results = 1
+
+    for i in range(1, n+1):
+        results *= i
+
+    return results
+
+print(factorial(5))
+print(factorial(0))
+print(factorial(1))
+
+
+# Exercise 20: Write a function that returns None for n < 0, and n² for n >= 0.
+# Check the returned value type with type() and 'is None'.
+def square_if_positive(n):
+    if n >= 0:
+        return n ** 2
+    else:
+        return None
+
+print(square_if_positive(2))
+print(type(square_if_positive(-1)))
+print((square_if_positive(-1)) is None)
+
+
+# Exercise 21: Write introduce(name, age, city="Warsaw") that prints person info.
+# Call it with positional args, keyword args (different order), and default param.
+def introduce(name, age, city="Warsaw"):
+    print(f"{name} is {age} years old and lives in {city}")
+
+tim = introduce("Tim", 18, "Berlin")
+tom = introduce(city="Paris", name="Tom", age=30)
+john = introduce("John", 17)
+
+
+# Exercise 22: Demonstrate name scope — declare global x = "global",
+# create local x inside a function, use the global keyword in another function
+# to modify x, then print x after each call.
+x = "global"
+
+def local_x():
+    x = "local"
+    print(x)
+
+def global_x():
+    global x
+    print(x)
+
+local_x()
+global_x()
+
+
+# Exercise 23: Ask the user for a number, handle ValueError (non-numeric input)
+# and ZeroDivisionError (zero input), divide 100 by it, print result,
+# and print "done" in a finally block.
+try:
+    number = int(input("Enter a number: "))
+    result = 100 / number
+    print(result)
+except ValueError:
+    print("Number must be a number!")
+except ZeroDivisionError:
+    print("You can't device by zero!")
+finally:
+    print("done")
+
+
+# Exercise 24: Build a simple console calculator combining all sections —
+# read two numbers and an operator (+, -, *, /, //, **, %), handle bad input
+# and ZeroDivisionError, use a function per operation, print result to 2 decimal places.
+def add(a, b):
+    return a + b
+
+def minus(a, b):
+    return a - b
+
+def multiplication(a, b):
+    return a * b
+
+def division(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        print("You can't divide by zero!")
+        return None
+
+def int_division(a, b):
+    try:
+        return a // b
+    except ZeroDivisionError:
+        print("You can't divide by zero!")
+        return None
+
+def exponentiation(a, b):
+    return a ** b
+
+def rest_from_division(a, b):
+    try:
+        return a % b
+    except ZeroDivisionError:
+        print("You can't divide by zero!")
+        return None
+
+def calculator():
+    try:
+        first_number = float(input("Enter first number: "))
+        second_number = float(input("Enter second number: "))
+    except ValueError:
+        print(f"Number must be a valid number!")
+        return
+
+    print("+, -, *, /, //, **, %")
+    operator = input("Select operator: ")
+
+
+    if operator == "+":
+        result = add(first_number, second_number)
+    elif operator == "-":
+        result = minus(first_number, second_number)
+    elif operator == "*":
+        result = multiplication(first_number, second_number)
+    elif operator == "/":
+        result = division(first_number, second_number)
+    elif operator == "//":
+        result = int_division(first_number, second_number)
+    elif operator == "**":
+        result = exponentiation(first_number, second_number)
+    elif operator == "%":
+        result = rest_from_division(first_number, second_number)
+    else:
+        print("Error: There is no such operator!")
+        return
+
+    if result is not None:
+        print(f"Result: {result:.2f}")
+
+calculator()
